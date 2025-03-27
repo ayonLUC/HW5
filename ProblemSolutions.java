@@ -1,7 +1,7 @@
 /******************************************************************
  *
  *   YOUR NAME / SECTION NUMBER
- *
+ *      Salvador Ayon / COMP272 002
  *   This java file contains the problem solutions of isSubSet, findKthLargest,
  *   and sort2Arrays methods. You should utilize the Java Collection Framework for
  *   these methods.
@@ -33,8 +33,24 @@ class ProblemSolutions {
     public boolean isSubset(int list1[], int list2[]) {
 
         // ADD YOU CODE HERE -- DON'T FORGET TO ADD YOR NAME AT TOP OF FILE
-
-        return false;
+        Set<Integer> set = new HashSet<>();
+//        for(int i = 0; i < list1.size(); i ++){
+//            set.add(list1.get(i));
+//        }
+//        for (int i = 0; i < list2.size(); i++) {
+//        if (!set.contains(list2.get(i))) {
+//            return false;
+//          }
+//        }
+        for(int num : list1){
+            set.add(num);
+        }
+        for(int num : list2){
+            if(set.contains(num) == false) {
+                return false;
+            }
+        }
+        return true;
     }
 
 
@@ -54,8 +70,18 @@ class ProblemSolutions {
     public int findKthLargest(int[] array, int k) {
 
         // ADD YOUR CODE HERE
+        //create a special list
+        PriorityQueue<Integer> maxHeap = new PriorityQueue<>(Collections.reverseOrder());
 
-        return 0;
+        //go through each number and add to our list
+        for (int num : array) {
+            maxHeap.offer(num);
+        }
+        for (int i = 0; i < k -1; i ++) {
+            maxHeap.poll();
+        }
+        return maxHeap.peek();
+//        return 0;
     }
 
 
@@ -75,8 +101,21 @@ class ProblemSolutions {
     public int[] sort2Arrays(int[] array1, int[] array2) {
 
         // ADD YOU CODE HERE
-
-        return null;
+        PriorityQueue<Integer> minHeap = new PriorityQueue<>();
+        for (int num : array1){
+            minHeap.offer(num);
+        }
+        for(int num : array2) {
+            minHeap.offer(num);
+        }
+        int[] sortedArray = new int[array1.length + array2.length];
+        int index = 0;
+        for (int i = 0; !minHeap.isEmpty(); i ++){
+            sortedArray[index++] = minHeap.poll();
+        }
+        return sortedArray;
+//        return null;
     }
 
 }
+
